@@ -4,7 +4,7 @@ import "./styles.css";
 const Nav = props => {
   return (
     <nav className="Nav">
-      <p>React Memory Game</p>
+      <p>The Memory Game!</p>
       <ul>
         <li>Score: {props.score}</li>
         <li>High Score: {props.highScore}</li>

@@ -3,6 +3,7 @@ import cardArray from "./cards.json";
 import "./App.css";
 import Nav from "./Components/Nav";
 import CardContainer from "./Components/CardContainer";
+import Header from "./Components/Header";
 
 class App extends React.Component {
   state = {
@@ -10,16 +11,6 @@ class App extends React.Component {
     clickedCards: [],
     score: 0,
     highScore: 0,
-    gameOver: false,
-  };
-
-  addToClicked = e => {
-    const { id } = e.target;
-    const newClickedCards = [...this.state.clickedCards];
-    newClickedCards.push(id);
-    this.setState({
-      clickedCards: newClickedCards,
-    });
   };
 
   shuffleArray = arr => {
@@ -33,25 +24,35 @@ class App extends React.Component {
     });
   };
 
+  checkIfClicked = id => {
+    const clickedCards = [...this.state.clickedCards];
+    return clickedCards.includes(id.toString());
+  };
+
+  addToClicked = e => {
+    const { id } = e.target;
+    const newClickedCards = [...this.state.clickedCards, id];
+    this.setState({
+      clickedCards: newClickedCards,
+    });
+  };
+
   incrementScore = () => {
     let score = this.state.score;
     score += 1;
     score > this.state.highScore
       ? this.setState({ score, highScore: score })
       : this.setState({ score });
-    score = 12 && this.setState({ gameOver: true });
-  };
-
-  checkIfClicked = id => {
-    const clickedCards = [...this.state.clickedCards];
-    return clickedCards.includes(id.toString());
+    if (score === 12) {
+      this.resetGame();
+    }
   };
 
   resetGame = () => {
+    this.state.score === 12 ? alert("You won!") : alert("You lost!");
     this.setState({
       clickedCards: [],
       score: 0,
-      gameOver: false,
     });
     this.shuffleArray(this.state.cards);
   };
@@ -62,7 +63,6 @@ class App extends React.Component {
       this.incrementScore();
       this.shuffleArray(this.state.cards);
     } else {
-      this.setState({ gameOver: true });
       this.resetGame();
     }
   };
@@ -71,6 +71,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Nav score={this.state.score} highScore={this.state.highScore} />
+        <Header />
         <CardContainer
           cards={this.state.cards}
           handleClick={this.handleClick}
