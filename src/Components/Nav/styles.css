@@ -1,0 +1,16 @@
+.Nav {
+  background-color: #799351;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5%;
+  font-size: 1.2rem;
+}
+
+.Nav > ul {
+  list-style: none;
+  display: flex;
+}
+.Nav > ul > li {
+  margin: 0 10px;
+}
