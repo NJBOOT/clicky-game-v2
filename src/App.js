@@ -4,6 +4,7 @@ import "./App.css";
 import Nav from "./Components/Nav";
 import CardContainer from "./Components/CardContainer";
 import Header from "./Components/Header";
+import Modal from "./Components/Modal";
 
 class App extends React.Component {
   state = {
@@ -11,6 +12,8 @@ class App extends React.Component {
     clickedCards: [],
     score: 0,
     highScore: 0,
+    gameOver: false,
+    won: false,
   };
 
   shuffleArray = arr => {
@@ -44,17 +47,25 @@ class App extends React.Component {
       ? this.setState({ score, highScore: score })
       : this.setState({ score });
     if (score === 12) {
-      this.resetGame();
+      this.setState({ won: true });
+      this.gameOver();
     }
   };
 
   resetGame = () => {
-    this.state.score === 12 ? alert("You won!") : alert("You lost!");
     this.setState({
       clickedCards: [],
       score: 0,
+      gameOver: false,
     });
+    setTimeout(() => {
+      this.setState({ won: false });
+    }, 600);
     this.shuffleArray(this.state.cards);
+  };
+
+  gameOver = () => {
+    this.setState({ gameOver: true });
   };
 
   handleClick = (e, id) => {
@@ -63,7 +74,7 @@ class App extends React.Component {
       this.incrementScore();
       this.shuffleArray(this.state.cards);
     } else {
-      this.resetGame();
+      this.gameOver();
     }
   };
 
@@ -71,6 +82,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <Nav score={this.state.score} highScore={this.state.highScore} />
+        <Modal
+          gameOver={this.state.gameOver}
+          won={this.state.won}
+          resetGame={this.resetGame}
+        />
         <Header />
         <CardContainer
           cards={this.state.cards}
