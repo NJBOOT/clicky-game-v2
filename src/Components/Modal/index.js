@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import Backdrop from "../Backdrop/Backdrop";
+import Backdrop from "../Backdrop/";
 
 const Modal = props => {
   let classes = [];

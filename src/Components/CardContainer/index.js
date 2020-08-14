@@ -10,7 +10,7 @@ const CardContainer = props => {
           <Card
             key={`card-${card.id}`}
             id={card.id}
-            image={card.image}
+            image={card.src}
             handleClick={props.handleClick}
           />
         );

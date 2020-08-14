@@ -1,10 +1,10 @@
 import React from "react";
-import cardArray from "./cards.json";
 import "./App.css";
 import Nav from "./Components/Nav";
 import CardContainer from "./Components/CardContainer";
 import Header from "./Components/Header";
 import Modal from "./Components/Modal";
+import cardArray from "./Components/images";
 
 class App extends React.Component {
   state = {
